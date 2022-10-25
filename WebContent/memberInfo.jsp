@@ -130,11 +130,11 @@
                 	</table>
              		<button type="button" class="in_btn1" onclick="location.href='memList.jsp'">회원목록</button>   	
                 </div>
-              </div>
+            </div>
        	</section>
-       	</div>
-       	<footer class="ft">
-		<%@ include file="footer.jsp" %>
+    </div>
+   	<footer class="ft">
+	<%@ include file="footer.jsp" %>
 	</footer>
 </div>
 </body>

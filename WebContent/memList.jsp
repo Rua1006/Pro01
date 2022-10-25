@@ -115,7 +115,7 @@
 				</div>
 			</div>
 		</section>
-	</div>
+		</div>
 	<footer class="ft">
 		<%@ include file="footer.jsp" %>
 	</footer>
