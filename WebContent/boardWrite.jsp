@@ -1,28 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, java.sql.*"%>
+<%@ page import="java.sql.*" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
 	
-	String sid = (String) session.getAttribute("id");
+	String sid = (String)session.getAttribute("id");
 	
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String dbid = "system";
-	String dbpw = "1234";
-	String sql = "";
-	
-	try {
-		Class.forName("oracle.jdbc.OracleDriver");
-		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "select*from board";
-		pstmt = con.prepareStatement(sql);
-		rs = pstmt.executeQuery();
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -49,14 +34,15 @@
 
         .board_list table {width: 100%; border-top: 2px solid #ff7c98; border-bottom: 2px solid #ff7c98; border-collapse: collapse; margin-top: 80px;}
         .board_list th { border-bottom: 1px solid #d8d1cc; color:#ff7c98; font-size: 13px; line-height: 40px; font-family: 'Noto Sans KR', sans-serif; }
-        .board_list td {border-bottom: 1px solid #d8d1cc; color: #333; font-size: 13px; text-align: center; line-height: 28px; border-collapse: collapse; font-family: 'Noto Sans KR', sans-serif; }
+        .board_list td {width:800px; border-bottom: 1px solid #d8d1cc; color: #333; font-size: 13px; text-align: center; line-height: 28px; border-collapse: collapse; font-family: 'Noto Sans KR', sans-serif; }
         .board_list td a {text-decoration-line:none; color: #3c3c8c;}
         .board_list td:nth-child(even){background: #f7f7f7;}
 
         .in_dt { background-color:#fff; height:32px; line-height: 32px; width: 280px; color:#333; font-size:16px; text-indent:0.5em; }
-        .in_btn { display:block; background-color:#ebaccb; min-width:120px; height: 32px;  line-height: 32px; border-radius:20px; float:left; margin-left:80px; margin-right:20px; cursor:pointer; 
-        color: #fff; font-size: 15px; border: 0; outline: 0;}
-        .in_btn:hover { background-color: #3c3c8c; }
+        .in_btn { display:block; background-color:#ebaccb; min-width:120px; height: 32px;  line-height: 32px; border-radius:20px; float:left; margin-right:20px; cursor:pointer; 
+        color: #fff; font-size: 15px; border: 0; outline: 0; margin-top:20px; text-align: center; font-family: 'Noto Sans KR', sans-serif; text-decoration-line:none;}
+        .in_btn1 { background-color:#ebaccb; min-width:120px; height: 32px;  line-height: 32px; border-radius:20px; cursor:pointer; 
+        color: #fff; font-size: 15px; border: 0; outline: 0; float: right; diplay:block; margin-top:20px;}
 
     </style>
     <link rel="stylesheet" href="footer.css">
@@ -73,62 +59,45 @@
         <div class="bread">
             <div class="bread_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
-                <span class="sel">게시판목록</span>
+                <span class="sel">글 쓰기</span>
             </div>
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">게시판목록</h2>
-                <div class="board_list">
+                <h2 class="page_title">글쓰기</h2>                
+                <div class="board_edit">
+                <form name="frm" action="boardWritePro.jsp" method="post" class="frm">
                 	<table>
-                		<thead>
-                			<tr>
-                				<th>번호</th>
-                				<th>제목</th>
-                				<th>작성자</th>
-                				<th>작성일</th>
-                			</tr>
-                		</thead>
                 		<tbody>
-<%		
-		int cnt = 0;
-		while(rs.next()){
-			cnt+=1;
-%>
-							<tr>
-								<td><%=cnt %></td>
-								<td><a href='boardInfo.jsp?id=<%=rs.getString("title")%>&no=<%=rs.getInt("no")%>'><%=rs.getString("title")%></a></td>
-								<td><%=rs.getString("author")%></td>
-								<td><%=rs.getString("resdate")%></td>
-							</tr>
-<%
-		}
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			rs.close();
-			pstmt.close();
-			con.close();
-		}
-%>							
-						</tbody>
-					</table>
-					
-					<div class="btn">
-					<%
-						if(sid!=null) {
-					%>
-					<button type="button" class="in_btn1" onclick="location.href='boardWrite.jsp'">글작성</button>  
-					<%
-						}
-					%>
-					</div>
-			</div>
-		</section>
-		</div>
-	<footer class="ft">
-		<%@ include file="footer.jsp" %>
+                			<tr>
+                				<th>제목</th>
+                				<td><input type="text" name="title" id="title" class="in_data" required /></td>
+                			</tr>
+                			<tr>
+                				<th>내용</th>
+                				<td><textarea cols="100" rows="8" name="content" id="content"></textarea></td>
+                			</tr>
+                			<tr>
+                				<th>작성자</th>
+								<td><%=sid %>
+								<input type="hidden" name="author" id="author" value="<%=sid %>"> 
+								</td>
+                			</tr>
+                		</tbody>
+                	</table>
+                	<div class="btn">
+             		<button type="submit" class="in_btn1">글작성</button>
+             		<button type="button" class="in_btn1" onclick="location.href='brd.jsp#page2'">글목록</button>
+					</div> 
+				</form>	  	
+                </div>
+            </div>
+       	</section>
+    </div>
+   	<footer class="ft">
+	<%@ include file="footer.jsp" %>
 	</footer>
 </div>
 </body>
-</html>                		
+</html>		
+       	       	

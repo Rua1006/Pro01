@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, java.sql.*"%>
+<%@ page import="java.util.Date, java.sql.*, java.text.*" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
+	
+	String sid = (String) session.getAttribute("id");
 	
 	Connection con = null;
 	PreparedStatement pstmt = null;
@@ -21,6 +23,7 @@
 		sql = "select*from board";
 		pstmt = con.prepareStatement(sql);
 		rs = pstmt.executeQuery();
+		
 %>
 <!DOCTYPE html>
 <html lang="kor">
@@ -45,6 +48,8 @@
         .borad_table {width: 100%; margin-top: 20px; border-top: 2px solid #ff7c98; border-bottom: 2px solid #ff7c98; }
         .borad_table td {border-bottom: 1px solid #dadada; text-align: center; font-size: 15px;}
         .borad_table th {border-bottom: 1px solid #dadada; text-align: center; font-size: 15px;}
+        .borad_table .dtail {color : #333; font-weight: 400; vertical-align: middle; font-family: 'Noto Sans KR', sans-serif;}
+        .borad_table tbody {font-size: 15px; vertical-align: middle; font-family: 'Noto Sans KR', sans-serif;}
         .borad_table a.tit {color: rgb(129, 33, 185); font-size: 15px; text-decoration-line:none; font-family: 'Noto Sans KR', sans-serif;}
         .borad_table .num {color : #333; font-weight: 400; vertical-align: middle; font-family: 'Noto Sans KR', sans-serif;}
         .borad_table .title {height:55px; padding-left: 20px; text-align: left; vertical-align: middle; }
@@ -57,6 +62,8 @@
         text-decoration: none;}
         .to_top:hover { background-color: rgb(129, 33, 185); }
         .to_top.on { visibility: visible; }
+        .in_btn1 { background-color:#ebaccb; min-width:120px; height: 32px;  line-height: 32px; border-radius:20px; cursor:pointer; 
+        color: #fff; font-size: 15px; border: 0; outline: 0; float: right; diplay:block; margin-top:20px;}
 
     </style>
     <link rel="stylesheet" href="footer.css">
@@ -247,7 +254,7 @@
 						<col width="*">
 						<col width="10%">
 					</colgroup>
-						<thead>
+						<thead class="dtail">
                 			<tr>
                 				<th>번호</th>
                 				<th>제목</th>
@@ -256,14 +263,14 @@
                 			</tr>
                 		</thead>
                 		<tbody>
-<%	
+<%		
 		int cnt = 0;
 		while(rs.next()){
 			cnt+=1;
 %>
 							<tr>
 								<td><%=cnt %></td>
-								<td><a href='boardInfo.jsp?id=<%=rs.getString("title")%>'><%=rs.getString("title")%></a></td>
+								<td><a href='boardInfo.jsp?id=<%=rs.getString("title")%>&no=<%=rs.getInt("no")%>'><%=rs.getString("title")%></a></td>
 								<td><%=rs.getString("author")%></td>
 								<td><%=rs.getString("resdate")%></td>
 							</tr>
@@ -276,9 +283,18 @@
 			pstmt.close();
 			con.close();
 		}
-%>							
+%>						
 						</tbody>                		
 				</table> 
+				<div class="btn">
+					<%
+						if(sid!=null) {
+					%>
+					<button type="button" class="in_btn1" onclick="location.href='boardWrite.jsp'">글작성</button>  
+					<%
+						}
+					%>
+					</div>
             </div>
         </section>
     </div>

@@ -95,63 +95,57 @@
 <body>
 <div class="wrap">
     <header class="hd">
-    	<%@ include file = "nav.jsp"%>
-	</header>
-	<div class="content">
+		<%@ include file="nav.jsp" %>
+    </header>
+    <div class="content">
         <figure class="vs">
             <img src="./img/banner.jpg" alt="비주얼">
         </figure>
         <div class="bread">
             <div class="bread_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
-                <span class="sel">상세내용</span>
+                <span class="sel">글 수정하기</span>
             </div>
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">상세내용</h2>
-                <div class="board_list">
-                	<table>
-                		<thead>
-                			<tr>
-								<th>글 번호</th>
-								<td><%=no %></td>
-							</tr>
-                			<tr>
-                				<th>제목</th>
-                				<td><%=title%></td>
-                			</tr>
-                			<tr>
-                				<th>내용</th>
-                				<td><%=content%></td>
-                			</tr>
-                			<tr>
-                				<th>작성자</th>
-                				<td><%=author%></td>
-                			</tr>
-                			<tr>
-                				<th>작성일</th>
-                				<td><%=resdate%></td>
-                			</tr>
-                		</thead>
-                	</table>
-                	<div class="btn">
-             		<button type="button" class="in_btn1" onclick="location.href='brd.jsp#page2'">글목록</button>
-             		<%
-							if(sid.equals("admin") || sid.equals(author)) {
-						%>
-						<a href='boardModify.jsp?no=<%=no %>' class="in_btn">글 수정</a>
-						<a href='boardDel.jsp?no=<%=no %>' class="in_btn">글 삭제</a>
-						<% } %>
-					</div>   	
-                </div>
-            </div>
-       	</section>
+                <h2 class="page_title">글 수정하기</h2>
+  				<div class="frm1">
+  					<form name="frm" action="boardModifyPro.jsp" method="post" class="frm">
+	  					<table class="tb">
+	  						<tbody>             
+								<tr>
+									<th>글 번호</th>
+									<td><%=no %><input type="hidden" name="no" id="no" value="<%=no %>" readonly></td>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td><input type="text" name="title" id="title" value="<%=title %>" class="in_data" required /></td>
+								</tr>
+								<tr>
+									<th>내용</th>
+									<td>
+										<textarea cols="100" rows="8" name="content" id="content"><%=content %></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th>작성자</th>
+									<td><%=uname %></td>
+								</tr>
+							</tbody> 
+						</table>
+						<div class="btn_group">
+							<button type="submit" class="btn primary">글 수정하기</button>
+							<a href="brd.jsp#page2" class="btn primary">게시판 목록</a>
+						</div>
+					</form>
+				</div>
+			</div>
+        </section>
     </div>
-   	<footer class="ft">
-	<%@ include file="footer.jsp" %>
-	</footer>
+    <footer class="ft">
+		<%@ include file="footer.jsp" %>
+    </footer>
 </div>
 </body>
-</html>		
-       	       	
+</html>
