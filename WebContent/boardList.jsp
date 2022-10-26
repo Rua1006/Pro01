@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, java.sql.*"%>
+<%@ page import="java.util.*,java.sql.*"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
@@ -17,12 +17,47 @@
 	String dbpw = "1234";
 	String sql = "";
 	
+	int amount = 0;
+	int stNum = 1;
+	int edNum = 1;
+	
 	try {
 		Class.forName("oracle.jdbc.OracleDriver");
 		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "select*from board";
+		sql = "select count(*) cnt from board";
 		pstmt = con.prepareStatement(sql);
 		rs = pstmt.executeQuery();
+		
+		/*건수 표기*/
+		if(rs.next()){
+			amount =  rs.getInt("cnt");
+		}
+		rs.close();
+		pstmt.close();
+		
+		pstmt = null;
+		rs = null;
+		
+		/* select no, title, content, author, resdate from
+		(select rownum rn, no, title, content, author, resdate from board
+		order by no desc) t1 where t1.rn between 1 and 10; */
+		
+		/*테이블보기*/
+		sql = "select no, title, content, author, resdate from ";
+		sql = sql + " (select rownum rn, no, title, content, author, resdate from board order by no desc) ";
+		sql = sql + " t1 where t1.rn between ? and ?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, stNum);
+		pstmt.setInt(2, edNum);
+		rs = pstmt.executeQuery();
+		rs.close();
+		pstmt.close();
+		
+		
+		
+		out.println("<p>건수 : " + amount + "건</p>");
+		
+		
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -53,9 +88,12 @@
         .board_list td a {text-decoration-line:none; color: #3c3c8c;}
         .board_list td:nth-child(even){background: #f7f7f7;}
 
+		.btn a {text-decoration-line:none; margin-top: 20px;}
         .in_dt { background-color:#fff; height:32px; line-height: 32px; width: 280px; color:#333; font-size:16px; text-indent:0.5em; }
         .in_btn { display:block; background-color:#ebaccb; min-width:120px; height: 32px;  line-height: 32px; border-radius:20px; float:left; margin-left:80px; margin-right:20px; cursor:pointer; 
         color: #fff; font-size: 15px; border: 0; outline: 0;}
+        .in_btn1 { display:block; background-color:#ebaccb; min-width:120px; height: 32px;  line-height: 32px; border-radius:20px; float:right; margin-left:80px; margin-right:20px; cursor:pointer; 
+        color: #fff; font-size: 15px; border: 0; outline: 0; margin-top: 20px;}
         .in_btn:hover { background-color: #3c3c8c; }
 
     </style>
@@ -90,9 +128,8 @@
                 			</tr>
                 		</thead>
                 		<tbody>
-<%		
-		int cnt = 0;
-		while(rs.next()){
+<%			int cnt = 0;
+			while(rs.next()){
 			cnt+=1;
 %>
 							<tr>
@@ -113,17 +150,19 @@
 %>							
 						</tbody>
 					</table>
-					
 					<div class="btn">
 					<%
-						if(sid!=null) {
+						int pageCount = (amount<=10) ? 1 : amount/10 + 1;
+						for(int i=1; i<=pageCount; i++){
 					%>
+						<a href="boardList.jsp?curPage=<%=i %>">[<%=i %>]&nbsp;</a>
+					<%}%>
+					<%if(sid!=null) {%>
 					<button type="button" class="in_btn1" onclick="location.href='boardWrite.jsp'">글작성</button>  
-					<%
-						}
-					%>
+					<%}%>
 					</div>
 			</div>
+		</div>	
 		</section>
 		</div>
 	<footer class="ft">

@@ -20,7 +20,7 @@
 	try {
 		Class.forName("oracle.jdbc.OracleDriver");
 		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "select*from board";
+		sql = "select * from board";
 		pstmt = con.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		
@@ -44,12 +44,32 @@
         .page_wrap { width: 1200px; margin: 0 auto; }
         .content {display:none;}
         .content:target {display: block;}
-
-        .borad_table {width: 100%; margin-top: 20px; border-top: 2px solid #ff7c98; border-bottom: 2px solid #ff7c98; }
-        .borad_table td {border-bottom: 1px solid #dadada; text-align: center; font-size: 15px;}
+		.home { color:#333; text-decoration-line: none;}
+		
+		
+        .borad_table {width: 100%; margin-top: 20px; border-top: 2px solid #ff7c98; border-bottom: 2px solid #ff7c98;}
+        .borad_table td {border-bottom: 1px solid #dadada; text-align: center; font-size: 15px; }
         .borad_table th {border-bottom: 1px solid #dadada; text-align: center; font-size: 15px;}
-        .borad_table .dtail {color : #333; font-weight: 400; vertical-align: middle; font-family: 'Noto Sans KR', sans-serif;}
-        .borad_table tbody {font-size: 15px; vertical-align: middle; font-family: 'Noto Sans KR', sans-serif;}
+        
+        /*page2 ad*/
+        .borad_table .dtail {height:55px; padding-left: 20px; font-family: 'Noto Sans KR', sans-serif;}
+        .borad_table .dtail_title1 {text-align: center; vertical-align: middle;}
+        .borad_table .dtail_title2 {text-align: center; vertical-align: middle;}
+        .borad_table .dtail_title3 {text-align: center; vertical-align: middle;}
+        .borad_table .dtail_title4 {text-align: center; vertical-align: middle;}
+        
+        .borad_table .sub_title {height:55px; text-align: center;}
+        td.sub_title1 {width:100px; vertical-align: middle;}
+        td.sub_title2 {height:55px; padding-left: 20px; text-align: left; vertical-align: middle;}
+    	td.sub_title2 a{width:100px; text-decoration-line:none; vertical-align: middle;}
+        td.sub_title3 {width: 150px; vertical-align: middle;}
+        td.sub_title4 {width: 200px; vertical-align: middle;}
+        
+        .borad_table tbody {font-size: 15px; font-family: 'Noto Sans KR', sans-serif;}
+		.borad_table .sub_title td:nth-child(even){background: #f7f7f7;}
+        .dtail {vertical-align: middle;} 
+        
+        /*page3 ad*/
         .borad_table a.tit {color: rgb(129, 33, 185); font-size: 15px; text-decoration-line:none; font-family: 'Noto Sans KR', sans-serif;}
         .borad_table .num {color : #333; font-weight: 400; vertical-align: middle; font-family: 'Noto Sans KR', sans-serif;}
         .borad_table .title {height:55px; padding-left: 20px; text-align: left; vertical-align: middle; }
@@ -63,10 +83,14 @@
         .to_top:hover { background-color: rgb(129, 33, 185); }
         .to_top.on { visibility: visible; }
         .in_btn1 { background-color:#ebaccb; min-width:120px; height: 32px;  line-height: 32px; border-radius:20px; cursor:pointer; 
-        color: #fff; font-size: 15px; border: 0; outline: 0; float: right; diplay:block; margin-top:20px;}
-
+        color: #fff; font-size: 15px; border: 0; outline: 0; float: right; diplay:block; margin-top:20px; margin-bottom: 20px;}
     </style>
     <link rel="stylesheet" href="footer.css">
+    
+   	<!--데이터테이블스  -->
+    <script src="./css/datatables.min.js"></script>
+    <link rel="stylesheet" href="./css/datatables.min.css">
+    
     <!--스크롤 스크립트-->
     <script>
     $(document).ready(function(){
@@ -82,7 +106,10 @@
                 $(".to_top").attr("href", location.href);
             }
         });
-    });    
+    });
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
     </script>
 </head>
 <body>
@@ -248,18 +275,19 @@
         <section class="page">
             <div class="page_wrap">
                 <h2 class="page_title">고객센터</h2>
-                <table class="borad_table">
-					<colgroup>
+                <table class="borad_table" id="myTable">
+				 	<colgroup>
 						<col width="8%">
 						<col width="*">
 						<col width="10%">
+						<col width="15%">
 					</colgroup>
 						<thead class="dtail">
                 			<tr>
-                				<th>번호</th>
-                				<th>제목</th>
-                				<th>작성자</th>
-                				<th>작성일</th>
+                				<th class ="dtail_title1">번호</th>
+                				<th class ="dtail_title2">제목</th>
+                				<th class ="dtail_title3">작성자</th>
+                				<th class ="dtail_title4">작성일</th>
                 			</tr>
                 		</thead>
                 		<tbody>
@@ -268,11 +296,11 @@
 		while(rs.next()){
 			cnt+=1;
 %>
-							<tr>
-								<td><%=cnt %></td>
-								<td><a href='boardInfo.jsp?id=<%=rs.getString("title")%>&no=<%=rs.getInt("no")%>'><%=rs.getString("title")%></a></td>
-								<td><%=rs.getString("author")%></td>
-								<td><%=rs.getString("resdate")%></td>
+							<tr class="sub_title" >
+								<td class="sub_title1"><%=cnt %></td>
+								<td class="sub_title2"><a href='boardInfo.jsp?id=<%=rs.getString("title")%>&no=<%=rs.getInt("no")%>'><%=rs.getString("title")%></a></td>
+								<td class="sub_title3"><%=rs.getString("author")%></td>
+								<td class="sub_title4"><%=rs.getString("resdate")%></td>
 							</tr>
 <%
 		}
@@ -287,13 +315,9 @@
 						</tbody>                		
 				</table> 
 				<div class="btn">
-					<%
-						if(sid!=null) {
-					%>
+					<%if(sid!=null) {%>
 					<button type="button" class="in_btn1" onclick="location.href='boardWrite.jsp'">글작성</button>  
-					<%
-						}
-					%>
+					<%}%>
 					</div>
             </div>
         </section>

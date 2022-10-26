@@ -72,22 +72,27 @@
         .page:after { content:""; display:block; clear:both; }
         .page_wrap { width: 1200px; margin: 0 auto; }
         
+        table {width: 100%; border-top: 2px solid #ff7c98; border-bottom: 2px solid #ff7c98; border-collapse: collapse; margin-top: 80px;}
+		
+        .page_title { padding-top: 1em; font-weight:bolder; font-size: 50px;  text-align: center; margin-top: 30px; color:#3c3c8c;}
+        .home { color:#333; text-decoration-line: none;}
+        .in_data { line-height: 20px;}
         
 
         .page_title { padding-top: 1em; font-weight:bolder; font-size: 50px;  text-align: center; margin-top: 30px; color:#3c3c8c;}
         .home { color:#333; text-decoration: none;}
 
         .board_list table {width: 100%; border-top: 2px solid #ff7c98; border-bottom: 2px solid #ff7c98; border-collapse: collapse; margin-top: 80px;}
-        .board_list th { border-bottom: 1px solid #d8d1cc; color:#ff7c98; font-size: 13px; line-height: 40px; font-family: 'Noto Sans KR', sans-serif; }
-        .board_list td {width:800px; border-bottom: 1px solid #d8d1cc; color: #333; font-size: 13px; text-align: center; line-height: 28px; border-collapse: collapse; font-family: 'Noto Sans KR', sans-serif; }
+        .board_list th { border-bottom: 1px solid #d8d1cc; color:#ff7c98; font-size: 13px; line-height: 40px; font-family: 'Noto Sans KR', sans-serif; vertical-align: middle;}
+        .board_list td {width:1000px; border-bottom: 1px solid #d8d1cc; color: #333; font-size: 13px; line-height: 28px; border-collapse: collapse; font-family: 'Noto Sans KR', sans-serif;
+        vertical-align: middle; padding: 1em; }
         .board_list td a {text-decoration-line:none; color: #3c3c8c;}
         .board_list td:nth-child(even){background: #f7f7f7;}
-
         .in_dt { background-color:#fff; height:32px; line-height: 32px; width: 280px; color:#333; font-size:16px; text-indent:0.5em; }
-        .in_btn { display:block; background-color:#ebaccb; min-width:120px; height: 32px;  line-height: 32px; border-radius:20px; float:left; margin-right:20px; cursor:pointer; 
+        .in_btn { display:block; background-color:#ebaccb; min-width:200px; height: 32px;  line-height: 32px; border-radius:20px; float:right; margin-right:20px; cursor:pointer; 
         color: #fff; font-size: 15px; border: 0; outline: 0; margin-top:20px; text-align: center; font-family: 'Noto Sans KR', sans-serif; text-decoration-line:none;}
         .in_btn1 { background-color:#ebaccb; min-width:120px; height: 32px;  line-height: 32px; border-radius:20px; cursor:pointer; 
-        color: #fff; font-size: 15px; border: 0; outline: 0; float: right; diplay:block; margin-top:20px;}
+        color: #fff; font-size: 15px; border: 0; outline: 0; float: right; diplay:block; margin-top:20px; margin-right: 20px;}
 
     </style>
     <link rel="stylesheet" href="footer.css">
@@ -111,7 +116,7 @@
             <div class="page_wrap">
                 <h2 class="page_title">글 수정하기</h2>
   				<div class="frm1">
-  					<form name="frm" action="boardModifyPro.jsp" method="post" class="frm">
+  					<form name="frm" action="boardModifyPro.jsp" method="post" class="board_list">
 	  					<table class="tb">
 	  						<tbody>             
 								<tr>
@@ -125,18 +130,18 @@
 								<tr>
 									<th>내용</th>
 									<td>
-										<textarea cols="100" rows="8" name="content" id="content"><%=content %></textarea>
+										<textarea cols="100" rows="30" name="content" id="content"><%=content %></textarea>
 									</td>
 								</tr>
 								<tr>
 									<th>작성자</th>
-									<td><%=uname %></td>
+									<td><%=name %></td>
 								</tr>
 							</tbody> 
 						</table>
 						<div class="btn_group">
-							<button type="submit" class="btn primary">글 수정하기</button>
-							<a href="brd.jsp#page2" class="btn primary">게시판 목록</a>
+							<a href="brd.jsp#page2" class="in_btn">고객센터로 돌아가기</a>
+							<button type="submit" class="in_btn1">수정하기</button>
 						</div>
 					</form>
 				</div>

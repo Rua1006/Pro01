@@ -31,7 +31,7 @@
 		Class.forName("oracle.jdbc.OracleDriver");
 		con = DriverManager.getConnection(url, dbid, dbpw);
 		sql = "select a.title title, a.content content,";
-		sql = sql + "b.name name, a.resdate resdate, a.author author ";
+		sql = sql + "b.name name, to_char(a.resdate, 'yyyy-MM-dd') resdate, a.author author ";
 		sql = sql + "from board a inner join member b ";
 		sql = sql + "on a.author=b.id where a.no=?";
 		pstmt = con.prepareStatement(sql);
@@ -78,8 +78,9 @@
         .home { color:#333; text-decoration: none;}
 
         .board_list table {width: 100%; border-top: 2px solid #ff7c98; border-bottom: 2px solid #ff7c98; border-collapse: collapse; margin-top: 80px;}
-        .board_list th { border-bottom: 1px solid #d8d1cc; color:#ff7c98; font-size: 13px; line-height: 40px; font-family: 'Noto Sans KR', sans-serif; }
-        .board_list td {width:800px; border-bottom: 1px solid #d8d1cc; color: #333; font-size: 13px; text-align: center; line-height: 28px; border-collapse: collapse; font-family: 'Noto Sans KR', sans-serif; }
+        .board_list th { border-bottom: 1px solid #d8d1cc; color:#ff7c98; font-size: 13px; line-height: 40px; font-family: 'Noto Sans KR', sans-serif; vertical-align: middle;}
+        .board_list td {width:1000px; border-bottom: 1px solid #d8d1cc; color: #333; font-size: 13px; text-align: left; line-height: 28px; border-collapse: collapse; font-family: 'Noto Sans KR', sans-serif;
+        				vertical-align: middle; padding-left: 2em; }
         .board_list td a {text-decoration-line:none; color: #3c3c8c;}
         .board_list td:nth-child(even){background: #f7f7f7;}
 
@@ -127,7 +128,7 @@
                 			</tr>
                 			<tr>
                 				<th>작성자</th>
-                				<td><%=author%></td>
+                				<td><%=name%></td>
                 			</tr>
                 			<tr>
                 				<th>작성일</th>
@@ -137,9 +138,8 @@
                 	</table>
                 	<div class="btn">
              		<button type="button" class="in_btn1" onclick="location.href='brd.jsp#page2'">글목록</button>
-             		<%
-							if(sid.equals("admin") || sid.equals(author)) {
-						%>
+             		<!-- <button type="button" class="in_btn1" onclick="location.href='boardList.jsp'">글목록</button> -->
+             			<%if(sid.equals("admin") || sid.equals(author)) {%>
 						<a href='boardModify.jsp?no=<%=no %>' class="in_btn">글 수정</a>
 						<a href='boardDel.jsp?no=<%=no %>' class="in_btn">글 삭제</a>
 						<% } %>
