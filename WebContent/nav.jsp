@@ -38,7 +38,7 @@
 <nav class="gnb">
     <ul>
         <li class="item1">
-            <a href="" class="dp1">Menu</a>
+            <a href="baskin.jsp#page1" class="dp1">Menu</a>
             <ul class="sub">
                 <li><a href="baskin.jsp#page1">아이스크림</a></li>
                 <li><a href="baskin.jsp#page2">아이스크림케이크</a></li>
@@ -46,7 +46,7 @@
             </ul>
         </li>
         <li class="item2">
-            <a href="" class="dp1">영양성분 및 알레르기</a>
+            <a href="tri.jsp#page1" class="dp1">영양성분 및 알레르기</a>
             <ul class="sub">
                 <li><a href="tri.jsp#page1">아이스크림</a></li>
                 <li><a href="tri.jsp#page2">아이스크림케이크</a></li>
@@ -54,7 +54,7 @@
             </ul>
         </li>
         <li class="item3">
-            <a href="" class="dp1">이벤트</a>
+            <a href="event.jsp#page1" class="dp1">이벤트</a>
             <ul class="sub">
                 <li><a href="event.jsp#page1">진행중인 이벤트</a></li>
                 <li><a href="event.jsp#page2">당첨자 발표</a></li>
@@ -62,7 +62,7 @@
             </ul>
         </li>
         <li class="item4">
-            <a href="" class="dp1">가게정보</a>
+            <a href="imp.jsp#page1" class="dp1">가게정보</a>
             <ul class="sub">
                 <li><a href="imp.jsp#page1">보도자료</a></li>
                 <li><a href="imp.jsp#page2">채용정보</a></li>
@@ -70,7 +70,7 @@
             </ul>
         </li>
         <li class="item5">
-            <a href="" class="dp1">게시판</a>
+            <a href="brd.jsp#page1" class="dp1">게시판</a>
             <ul class="sub">
                 <li><a href="brd.jsp#page1">공지사항</a></li>
                 <li><a href="brd.jsp#page2">고객센터</a></li>

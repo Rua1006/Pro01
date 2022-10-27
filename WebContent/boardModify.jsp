@@ -8,10 +8,7 @@
 	
 	String sid = (String)session.getAttribute("id");
 	
-	System.out.println(request.getParameter("no"));
-	
 	int no = Integer.parseInt(request.getParameter("no"));
-	
 	String title = request.getParameter("title");
 	String content = "";
 	String uname = "";

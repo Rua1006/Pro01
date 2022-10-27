@@ -20,7 +20,7 @@
 	try {
 		Class.forName("oracle.jdbc.OracleDriver");
 		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "select * from board";
+		sql = "select*from board order by no";
 		pstmt = con.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		
@@ -69,6 +69,7 @@
 		.borad_table .sub_title td:nth-child(even){background: #f7f7f7;}
         .dtail {vertical-align: middle;} 
         
+        
         /*page3 ad*/
         .borad_table a.tit {color: rgb(129, 33, 185); font-size: 15px; text-decoration-line:none; font-family: 'Noto Sans KR', sans-serif;}
         .borad_table .num {color : #333; font-weight: 400; vertical-align: middle; font-family: 'Noto Sans KR', sans-serif;}
@@ -110,6 +111,8 @@
     $(document).ready( function () {
         $('#myTable').DataTable();
     } );
+   
+    
     </script>
 </head>
 <body>
@@ -356,42 +359,42 @@
 						<tr>
 							<td class="num">1</td>
 							<td class="title">
-							    <a href="" class="tit">개설문의(비밀글입니다)</a>	
+							    <a href="" class="tit">개설문의</a>	
 						    </td>
 							<td class="period">2022-10-12</td>
 						</tr>
                         <tr>
 							<td class="num">2</td>
 							<td class="title">
-							    <a href="" class="tit">개설문의(비밀글입니다)</a>	
+							    <a href="" class="tit">개설문의</a>	
 						    </td>
 							<td class="period">2022-10-12</td>
 						</tr>
                         <tr>
 							<td class="num">3</td>
 							<td class="title">
-							    <a href="" class="tit">개설문의(비밀글입니다)</a>	
+							    <a href="" class="tit">개설문의</a>	
 						    </td>
 							<td class="period">2022-10-12</td>
 						</tr>
                         <tr>
 							<td class="num">4</td>
 							<td class="title">
-							    <a href="" class="tit">개설문의(비밀글입니다)</a>	
+							    <a href="" class="tit">개설문의</a>	
 						    </td>
 							<td class="period">2022-10-12</td>
 						</tr>
                         <tr>
 							<td class="num">5</td>
 							<td class="title">
-							    <a href="" class="tit">개설문의(비밀글입니다)</a>	
+							    <a href="" class="tit">개설문의</a>	
 						    </td>
 							<td class="period">2022-10-12</td>
 						</tr>
                         <tr>
 							<td class="num">6</td>
 							<td class="title">
-							    <a href="" class="tit">개설문의(비밀글입니다)</a>	
+							    <a href="" class="tit">개설문의</a>	
 						    </td>
 							<td class="period">2022-10-12</td>
 						</tr>

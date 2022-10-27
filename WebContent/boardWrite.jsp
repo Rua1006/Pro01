@@ -6,11 +6,11 @@
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
 	
-	String sid = (String)session.getAttribute("id");
+	String kid = (String)session.getAttribute("id");
 	
 %>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="kor">
 <head>
 	<%@ include file="head.jsp" %>
 
@@ -18,7 +18,7 @@
         /*header.css*/
         .hd {position: fixed;}
 
-        /*content*/
+        /*content_bread*/
         .vs {clear: both; width: 100%;  height:300px; overflow: hidden;}
         .vs img {display: block; width:100%; height:auto;}
         .bread {clear: both; width: 100%; line-height: 60px; border-bottom:3px solid #eee;}
@@ -26,23 +26,22 @@
         .page { clear:both; width: 100%; min-height:100vh;}
         .page:after { content:""; display:block; clear:both; }
         .page_wrap { width: 1200px; margin: 0 auto; }
-        
-        /*write*/
-		table {width: 100%; border-top: 2px solid #ff7c98; border-bottom: 2px solid #ff7c98; border-collapse: collapse; margin-top: 80px;}
-		.frm th {text-align: center; vertical-align:middle; margin-top: 20px; margin-bottom: 20px;}
-		
-        .page_title { padding-top: 1em; font-weight:bolder; font-size: 50px;  text-align: center; margin-top: 30px; color:#3c3c8c;}
         .home { color:#333; text-decoration: none;}
-        .in_data { line-height: 20px;}
-
+        .page_title { padding-top: 1em; font-weight:bolder; font-size: 50px;  text-align: center; margin-top: 30px; color:#3c3c8c;}
+        
+        /*write_edit*/
+		table {width: 100%; border-top: 2px solid #ff7c98; border-bottom: 2px solid #ff7c98; border-collapse: collapse; margin-top: 80px;}
+		textarea {font-size: 18px;}
+		.frm th {text-align: center; vertical-align:middle; margin-top: 20px; margin-bottom: 20px;}
         .board_list table {width: 100%; border-top: 2px solid #ff7c98; border-bottom: 2px solid #ff7c98; border-collapse: collapse; margin-top: 80px;}
-        .board_list th { border-bottom: 1px solid #d8d1cc; color:#ff7c98; font-size: 13px; line-height: 40px; font-family: 'Noto Sans KR', sans-serif; }
+        .board_list th { border-bottom: 1px solid #d8d1cc; color:#ff7c98; font-size: 13px; line-height: 40px; font-family: 'Noto Sans KR', sans-serif; vertical-align: middle;}
         .board_list td {width:1000px; border-bottom: 1px solid #d8d1cc; color: #333; font-size: 13px; text-align: left; line-height: 28px; border-collapse: collapse; font-family: 'Noto Sans KR', sans-serif; 
         	padding: 1em;}
         .board_list td a {text-decoration-line:none; color: #3c3c8c;}
-        .board_list td:nth-child(even){background: #f7f7f7;}
-
-        .in_dt { background-color:#fff; height:32px; line-height: 32px; width: 280px; color:#333; font-size:16px; text-indent:0.5em; }
+        .board_list td:nth-child(even){background: #f7f7f7;}		
+		.in_data { line-height: 20px;}
+		
+		/*button_type*/
         .in_btn { display:block; background-color:#ebaccb; min-width:120px; height: 32px;  line-height: 32px; border-radius:20px; float:right; margin-right:20px; cursor:pointer; 
         color: #fff; font-size: 15px; border: 0; outline: 0; margin-top:20px; text-align: center; font-family: 'Noto Sans KR', sans-serif; text-decoration-line:none;}
         .in_btn1 { background-color:#ebaccb; min-width:120px; height: 32px;  line-height: 32px; border-radius:20px; cursor:pointer; 
@@ -54,7 +53,7 @@
 <body>
 <div class="wrap">
     <header class="hd">
-    	<%@ include file = "nav.jsp"%>
+    <%@ include file = "nav.jsp"%>
 	</header>
 	<div class="content">
         <figure class="vs">
@@ -63,28 +62,28 @@
         <div class="bread">
             <div class="bread_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
-                <span class="sel">글 쓰기</span>
+                <span class="sel">고객센터 글 쓰기</span>
             </div>
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">글쓰기</h2>                
+                <h2 class="page_title">고객센터 글쓰기</h2>                
                 <div class="board_edit">
                 <form name="frm" action="boardWritePro.jsp" method="post" class="board_list">
                 	<table>
                 		<tbody>
                 			<tr>
                 				<th>제목</th>
-                				<td><input type="text" name="title" id="title" class="in_data" required /></td>
+                				<td><input type="text" name="title" id="title" class="in_data" placeholder="*제목입력" required /></td>
                 			</tr>
                 			<tr>
                 				<th>내용</th>
-                				<td><textarea cols="100" rows="8" name="content" id="content"></textarea></td>
+                				<td><textarea cols="100" rows="8" name="content" id="content" placeholder="*내용입력"></textarea></td>
                 			</tr>
                 			<tr>
                 				<th>작성자</th>
-								<td><%=sid %>
-								<input type="hidden" name="author" id="author" value="<%=sid %>"> 
+								<td><%=kid %>
+								<input type="hidden" name="author" id="author" value="<%=kid %>"> 
 								</td>
                 			</tr>
                 		</tbody>
@@ -99,9 +98,9 @@
             </div>
        	</section>
     </div>
-   	<footer class="ft">
-	<%@ include file="footer.jsp" %>
-	</footer>
+<footer class="ft">
+<%@ include file="footer.jsp" %>
+</footer>
 </div>
 </body>
 </html>		

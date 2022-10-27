@@ -80,7 +80,7 @@
         .board_list table {width: 100%; border-top: 2px solid #ff7c98; border-bottom: 2px solid #ff7c98; border-collapse: collapse; margin-top: 80px;}
         .board_list th { border-bottom: 1px solid #d8d1cc; color:#ff7c98; font-size: 13px; line-height: 40px; font-family: 'Noto Sans KR', sans-serif; vertical-align: middle;}
         .board_list td {width:1000px; border-bottom: 1px solid #d8d1cc; color: #333; font-size: 13px; text-align: left; line-height: 28px; border-collapse: collapse; font-family: 'Noto Sans KR', sans-serif;
-        				vertical-align: middle; padding-left: 2em; }
+        				vertical-align: middle; padding-left: 2em; padding-right: 2em; }
         .board_list td a {text-decoration-line:none; color: #3c3c8c;}
         .board_list td:nth-child(even){background: #f7f7f7;}
 
