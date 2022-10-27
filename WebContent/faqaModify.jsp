@@ -7,6 +7,7 @@
 	response.setContentType("text/html; charset=UTF-8");
 	
 	String kid = (String)session.getAttribute("id");
+	int no = Integer.parseInt(request.getParameter("no"));
 %>
 <!DOCTYPE>
 <html lang="kor">
@@ -61,14 +62,23 @@
         <div class="bread">
             <div class="bread_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
-                <span class="sel">자주하는 질문 및 답변 글작성</span>
+                <span class="sel">자주하는 질문 및 답변 글수정</span>
             </div>
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">자주하는 질문 및 답변 글작성</h2>                
+                <h2 class="page_title">자주하는 질문 및 답변 글수정</h2> 
+                <%@ include file ="connectionPool.conf" %>
+                <%
+                	sql = "select * from faqa where no=?";
+    				pstmt = con.prepareStatement(sql);
+    				pstmt.setInt(1, no);
+    				rs = pstmt.executeQuery();
+    				if(rs.next()){
+                %>            
                 <div class="board_edit">
-                <form name="frm" action="faqaWritePro.jsp" method="post" class="board_list">
+                <form name="frm" action="faqaModifyPro.jsp" method="post" class="board_list">
+                	<input type="hidden" name="no" id="no" value='<%=rs.getInt("no") %>' required>
                 	<table>
                 		<tbody>
                 			<tr>
@@ -76,11 +86,7 @@
                 				<td><input type="text" name="title" id="title" class="in_data" placeholder="*제목입력" required /></td>
                 			</tr>
                 			<tr>
-                				<th>질문 내용</th>
-                				<td><textarea cols="100" rows="8" name="content" id="content" placeholder="*내용입력"></textarea></td>
-                			</tr>
-                			<tr>
-                				<th>답변 내용</th>
+                				<th>내용</th>
                 				<td><textarea cols="100" rows="8" name="content" id="content" placeholder="*내용입력"></textarea></td>
                 			</tr>
                 			<tr>
@@ -91,9 +97,13 @@
                 			</tr>
                 		</tbody>
                 	</table>
+                	<%
+					}
+					%>
+					<%@ include file="connectionClose.conf" %>
                 	<div class="btn">
                 	<button type="button" class="in_btn" onclick="location.href='brd.jsp#page3'">글목록으로 돌아가기</button>
-             		<button type="submit" class="in_btn1">글작성</button>
+             		<button type="submit" class="in_btn1">글수정</button>
 					</div> 
 				</form>	  	
                 </div>

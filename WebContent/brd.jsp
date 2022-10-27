@@ -137,7 +137,7 @@
                 <select name="sel2" id="sel2" class="sel">
                     <option value="" selected>공지사항</option>
                     <option value="brd.jsp#page2">고객센터</option>
-                    <option value="brd.jsp#page3">개설문의</option>
+                    <option value="brd.jsp#page3">자주하는 질문 및 답변</option>
                 </select>
             </div>
         </div>
@@ -271,7 +271,7 @@
                 <select name="sel4" id="sel4" class="sel">
                     <option value="" selected>고객센터</option>
                     <option value="brd.jsp#page1">공지사항</option>
-                    <option value="brd.jsp#page3">개설문의</option>
+                    <option value="brd.jsp#page3">자주하는 질문 및 답변</option>
                 </select>
             </div>
         </div>
@@ -298,6 +298,8 @@
 		int cnt = 0;
 		while(rs.next()){
 			cnt+=1;
+			SimpleDateFormat yymmdd = new SimpleDateFormat("yyy-MM-dd");
+			String date = yymmdd.format(rs.getDate("resdate"));
 %>
 							<tr class="sub_title" >
 								<td class="sub_title1"><%=cnt %></td>
@@ -321,10 +323,18 @@
 					<%if(sid!=null) {%>
 					<button type="button" class="in_btn1" onclick="location.href='boardWrite.jsp'">글작성</button>  
 					<%}%>
-					</div>
+				</div>
             </div>
         </section>
     </div>
+<%
+	try{
+		Class.forName("oracle.jdbc.OracleDriver");
+		con = DriverManager.getConnection(url, dbid, dbpw);
+		sql = "select *from faqa order by parno asc, gubun asc";
+		pstmt = con.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+%>    
     <div class="content" id="page3">
         <figure class="vs">
             <img src="./img/banner1.jpg" alt="비주얼">
@@ -340,7 +350,7 @@
                     <option value="imp.jsp#page1">가게정보</option>
                 </select> &gt;
                 <select name="sel5" id="sel6" class="sel">
-                    <option value="" selected>개설문의</option>
+                    <option value="" selected>자주하는 질문 및 답변</option>
                     <option value="brd.jsp#page1">공지사항</option>
                     <option value="brd.jsp#page2">고객센터</option>
                 </select>
@@ -348,58 +358,58 @@
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">개설문의</h2>
+                <h2 class="page_title">자주하는 질문 및 답변</h2>
                 <table class="borad_table">
-					<colgroup>
+					<!-- <colgroup>
 						<col width="8%">
 						<col width="*">
 						<col width="10%">
-					</colgroup>
-					<tbody>
+					</colgroup> -->
+					<thead>
 						<tr>
-							<td class="num">1</td>
-							<td class="title">
-							    <a href="" class="tit">개설문의</a>	
-						    </td>
-							<td class="period">2022-10-12</td>
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
 						</tr>
-                        <tr>
-							<td class="num">2</td>
+					</thead>
+					<tbody>
+<%
+	int cntt=0;
+	while(rs.next()){
+		cntt+=1;
+		SimpleDateFormat yymmdd = new SimpleDateFormat("yyy-MM-dd");
+		String date = yymmdd.format(rs.getDate("resdate"));
+%>
+						<tr>
+							<td class="num"><%=cntt%></td>
 							<td class="title">
-							    <a href="" class="tit">개설문의</a>	
-						    </td>
-							<td class="period">2022-10-12</td>
+							<%if(rs.getInt("gubun")==0){ %>
+								<a href='faqInfo.jsp?no=<%=rs.getInt("no")%>'><%=rs.getString("title") %></a>
+							<%}else{%>
+								<a href='faqInfo.jsp?no=<%=rs.getInt("no")%>' style="padding-left: 2em;"><%=rs.getString("title") %></a>
+							<%} %>	
+							</td>
+							<td class ="author"><%=rs.getString("author")%></td>
+							<td class="period"><%=date %></td>
 						</tr>
-                        <tr>
-							<td class="num">3</td>
-							<td class="title">
-							    <a href="" class="tit">개설문의</a>	
-						    </td>
-							<td class="period">2022-10-12</td>
-						</tr>
-                        <tr>
-							<td class="num">4</td>
-							<td class="title">
-							    <a href="" class="tit">개설문의</a>	
-						    </td>
-							<td class="period">2022-10-12</td>
-						</tr>
-                        <tr>
-							<td class="num">5</td>
-							<td class="title">
-							    <a href="" class="tit">개설문의</a>	
-						    </td>
-							<td class="period">2022-10-12</td>
-						</tr>
-                        <tr>
-							<td class="num">6</td>
-							<td class="title">
-							    <a href="" class="tit">개설문의</a>	
-						    </td>
-							<td class="period">2022-10-12</td>
-						</tr>
+<%
+		}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			rs.close();
+			pstmt.close();
+			con.close();
+		}
+%>						
 					</tbody>
 				</table> 
+				<div class="btn">
+					<%if(sid.equals("admin")) {%>
+					<button type="button" class="in_btn1" onclick="location.href='faqaWrite.jsp'">자주하는 질문 및 답변 등록</button>  
+					<%}%>
+				</div>
             </div>
         </section>
     </div>

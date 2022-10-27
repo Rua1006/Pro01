@@ -17,6 +17,7 @@ insert into faqa values (fseq.nextval, '자주하는질문3에 대한 답변', '답변3 테스�
 insert into faqa values (fseq.nextval, '자주하는질문4에 대한 답변', '답변4 테스트','admin',sysdate,1, 4);
 insert into faqa values (fseq.nextval, '자주하는질문5에 대한 답변', '답변5 테스트','admin',sysdate,1, 5);
 
+select*from faqa order by parno asc, gubun asc;
 select * from faqa order by parno asc, gubun asc;
 
 commit;

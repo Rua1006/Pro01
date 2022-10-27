@@ -2,25 +2,27 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, java.sql.*" %>
 <%
-	request.setCharacterEncoding("UTF-8");
-	response.setCharacterEncoding("UTF-8");
-	response.setContentType("text/html; charset=UTF-8");
-	
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String dbid = "system";
-	String dbpw = "1234";
-	String sql = "";
-	
-	try{
-		Class.forName("oracle.jdbc.OracleDriver");
-		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "select * from faqa order by parno asc, gubun asc";
-		pstmt = con.prepareStatement(sql);
-		rs = pstmt.executeQuery();
+request.setCharacterEncoding("UTF-8");
+response.setCharacterEncoding("UTF-8");
+response.setContentType("text/html; charset=UTF-8");
+
+String sid = (String) session.getAttribute("id");
+
+Connection con = null;
+PreparedStatement pstmt = null;
+ResultSet rs = null;
+
+String url = "jdbc:oracle:thin:@localhost:1521:xe";
+String dbid = "system";
+String dbpw = "1234";
+String sql = "";
+
+try {
+	Class.forName("oracle.jdbc.OracleDriver");
+	con = DriverManager.getConnection(url, dbid, dbpw);
+	sql = "select * from faqa order by parno asc, gubun asc";
+	pstmt = con.prepareStatement(sql);
+	rs = pstmt.executeQuery();
 %>
 <!DOCTYPE html>
 <html lang="kor">
@@ -39,11 +41,8 @@
       			</tr>
        		</thead>
 			<tbody>
-
-<%		
-
+<%
 while(rs.next()){
-
 %>
 				<tr>
 					<td><%=rs.getInt("no")%></td>

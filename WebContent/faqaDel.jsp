@@ -6,34 +6,20 @@
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
 	
-	int no = Integer.parseInt(request.getParameter("no"));
-	
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-	String dbid = "system";
-	String dbpw = "1234";
-	String sql = "";
+	int parno = Integer.parseInt(request.getParameter("no"));
 	int cnt = 0;
+%>
+<%@ include file="connectionPool1.conf" %>
+<%
+	sql = "delete from faqa where parno=?";
+	pstmt = con.prepareStatement(sql);
+	pstmt.setInt(1, parno);
+	cnt = pstmt.executeUpdate();
 	
-	try {
-		Class.forName("oracle.jdbc.OracleDriver");
-		con = DriverManager.getConnection(url, dbid, dbpw);
-		sql = "delete from faqa where no=?";
-		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, no);
-		cnt = pstmt.executeUpdate();
-		if(cnt>0){
-			response.sendRedirect("faqaList.jsp");
-		} else {
-			response.sendRedirect("faqaInfo.jsp?no="+no);
-		}
-	} catch(Exception e){
-		e.printStackTrace();
-	} finally {
-		pstmt.close();
-		con.close();
+	if(cnt>=1){
+		response.sendRedirect("brd.jsp#page3");
+	} else {
+		response.sendRedirect("faqInfo.jsp?no="+parno);
 	}
 %>
-	
+<%@ include file="connectionClose1.conf" %>
