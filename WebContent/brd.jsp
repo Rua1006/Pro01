@@ -111,8 +111,6 @@
     $(document).ready( function () {
         $('#myTable').DataTable();
     } );
-   
-    
     </script>
 </head>
 <body>
@@ -137,7 +135,7 @@
                 <select name="sel2" id="sel2" class="sel">
                     <option value="" selected>공지사항</option>
                     <option value="brd.jsp#page2">고객센터</option>
-                    <option value="brd.jsp#page3">자주하는 질문 및 답변</option>
+                    <option value="brd.jsp#page3">FAQ</option>
                 </select>
             </div>
         </div>
@@ -271,7 +269,7 @@
                 <select name="sel4" id="sel4" class="sel">
                     <option value="" selected>고객센터</option>
                     <option value="brd.jsp#page1">공지사항</option>
-                    <option value="brd.jsp#page3">자주하는 질문 및 답변</option>
+                    <option value="brd.jsp#page3">FAQ</option>
                 </select>
             </div>
         </div>
@@ -350,7 +348,7 @@
                     <option value="imp.jsp#page1">가게정보</option>
                 </select> &gt;
                 <select name="sel5" id="sel6" class="sel">
-                    <option value="" selected>자주하는 질문 및 답변</option>
+                    <option value="" selected>FAQ</option>
                     <option value="brd.jsp#page1">공지사항</option>
                     <option value="brd.jsp#page2">고객센터</option>
                 </select>
@@ -358,19 +356,19 @@
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">자주하는 질문 및 답변</h2>
-                <table class="borad_table">
+                <h2 class="page_title">FAQ</h2>
+                <table class="borad_table" id="myTable">
 					<!-- <colgroup>
 						<col width="8%">
 						<col width="*">
 						<col width="10%">
 					</colgroup> -->
-					<thead>
+					<thead class="dtail">
 						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
+							<th class ="dtail_title1">번호</th>
+							<th class ="dtail_title2">제목</th>
+							<th class ="dtail_title3">작성자</th>
+							<th class ="dtail_title4">작성일</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -381,17 +379,17 @@
 		SimpleDateFormat yymmdd = new SimpleDateFormat("yyy-MM-dd");
 		String date = yymmdd.format(rs.getDate("resdate"));
 %>
-						<tr>
-							<td class="num"><%=cntt%></td>
-							<td class="title">
+						<tr class="sub_title">
+							<td class="sub_title1"><%=cntt%></td>
+							<td class="sub_title2">
 							<%if(rs.getInt("gubun")==0){ %>
 								<a href='faqInfo.jsp?no=<%=rs.getInt("no")%>'><%=rs.getString("title") %></a>
 							<%}else{%>
 								<a href='faqInfo.jsp?no=<%=rs.getInt("no")%>' style="padding-left: 2em;"><%=rs.getString("title") %></a>
 							<%} %>	
 							</td>
-							<td class ="author"><%=rs.getString("author")%></td>
-							<td class="period"><%=date %></td>
+							<td class="sub_title3"><%=rs.getString("author")%></td>
+							<td class="sub_title4"><%=date %></td>
 						</tr>
 <%
 		}
@@ -407,7 +405,7 @@
 				</table> 
 				<div class="btn">
 					<%if(sid.equals("admin")) {%>
-					<button type="button" class="in_btn1" onclick="location.href='faqaWrite.jsp'">자주하는 질문 및 답변 등록</button>  
+					<button type="button" class="in_btn1" onclick="location.href='faqaWrite.jsp'">FAQ 등록</button>  
 					<%}%>
 				</div>
             </div>

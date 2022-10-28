@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
+<%@ page import="java.sql.*, java.util.*"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
 	
 	String kid = (String)session.getAttribute("id");
-	
+	int parno = Integer.parseInt(request.getParameter("parno"));
 %>
 <!DOCTYPE html>
 <html lang="kor">
@@ -62,14 +62,14 @@
         <div class="bread">
             <div class="bread_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
-                <span class="sel">고객센터 글 쓰기</span>
+                <span class="sel">답변 글쓰기</span>
             </div>
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">고객센터 글쓰기</h2>                
+                <h2 class="page_title">답변 작성</h2>                
                 <div class="board_edit">
-                <form name="frm" action="boardWritePro.jsp" method="post" class="board_list">
+                <form name="frm" action="replyWritePro.jsp" method="post" class="board_list">
                 	<table>
                 		<tbody>
                 			<tr>
@@ -82,16 +82,24 @@
                 			</tr>
                 			<tr>
                 				<th>작성자</th>
-								<td><%=kid %>
-								<input type="hidden" name="author" id="author" value="<%=kid %>"> 
+								<td>
+									<input type="text" name="author" id="author" class="in_data" value="admin" readonly>
+									<input type="hidden" name="lev" id="lev" value="1">
+									<input type="hidden" name="parno" id="parno" value='<%=parno%>'>
+								</td>
+                			</tr>
+                			<tr>
+               					<th>작성 글 형태</th>
+	                			<td>
+	                			<input type="checkbox" id="ck_item1" name="sec" value="Y"> <label for="ck_item1">비밀글 확인</label>
+								<input type="checkbox" id="ck_item1" name="sec" value="N"> <label for="ck_item1">공개글 확인</label>
 								</td>
                 			</tr>
                 		</tbody>
                 	</table>
                 	<div class="btn">
-                	<button type="button" class="in_btn" onclick="location.href='brd.jsp#page2'">고객센터로 돌아가기</button>
-             		<button type="submit" class="in_btn1">글작성</button>
-             		<!-- <button type="button" class="in_btn1" onclick="location.href='boardList.jsp'">글목록</button> -->
+                	<button type="button" class="in_btn" onclick="location.href='secList.jsp'">게시판 돌아가기</button>
+             		<button type="submit" class="in_btn1">답변 작성</button>
 					</div> 
 				</form>	  	
                 </div>
@@ -104,4 +112,3 @@
 </div>
 </body>
 </html>		
-       	       	

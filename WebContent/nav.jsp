@@ -74,7 +74,7 @@
             <ul class="sub">
                 <li><a href="brd.jsp#page1">공지사항</a></li>
                 <li><a href="brd.jsp#page2">고객센터</a></li>
-                <li><a href="brd.jsp#page3">개설문의</a></li>
+                <li><a href="brd.jsp#page3">FAQ</a></li>
             </ul>
         </li>
     </ul>
