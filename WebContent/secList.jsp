@@ -5,10 +5,16 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
+	
+	String uid = (String) session.getAttribute("id");
+	if(uid==null){
+		uid ="guest";
+	}
+
 %>
 <%@ include file ="connectionPool.conf"%>
 <%
-	sql = "select*from qnaa order by parno asc, lev asc";
+	sql = "select * from qnaa order by parno desc, lev asc, no asc";
 	pstmt = con.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 %>
@@ -107,7 +113,8 @@
 <% 
 	int cnt=0;
 	while(rs.next()){
-		
+		SimpleDateFormat yymmdd = new SimpleDateFormat("yyyy-MM-dd");
+		String date = yymmdd.format(rs.getDate("resdate"));
 %>
 					<tr class="sub_title">
 						<td class="sub_title1">
@@ -118,21 +125,75 @@
 								}
 							%>
 						</td>
-						<td class="sub_title2">
-						<%if(rs.getInt("lev")==0){ %>
-							<a href='secInfo.jsp?id=<%=rs.getString("title")%>&no=<%=rs.getInt("no")%>'><%=rs.getString("title")%></a>
-						<%}else{%>
-							<a href='secInfo.jsp?id=<%=rs.getString("title")%>&no=<%=rs.getInt("no")%>' style="padding-left: 2em;"><%=rs.getString("title")%></a>
-						<%} %>
-						</td>	
-						<td class="sub_title3"><%=rs.getString("author")%></td>
-						<td class="sub_title4"><%=rs.getString("resdate")%></td>
-					</tr>
-<% } %>
-<%@ include file = "connectionClose.conf" %>
+						<td>
+					<% 
+						if(rs.getInt("lev")==0) {
+							if(rs.getString("sec").equals("Y")) {
+								if(uid.equals(rs.getString("author")) || uid.equals("admin")){
+					%>
+									<a href='secInfo.jsp?no=<%=rs.getInt("no") %>' class="sec1"><%=rs.getString("title") %></a>
+					<%
+								} else {
+					%>	
+									<span class="sec1"><%=rs.getString("title") %></span>
+					<%
+								}
+							} else if(rs.getString("sec").equals("N") && uid!="guest"){
+					%>	
+									<a href='secInfo.jsp?no=<%=rs.getInt("no") %>'><%=rs.getString("title") %></a>
+					<%
+							} else {
+					%>	
+									<span><%=rs.getString("title") %></span>
+					<%
+							}
+					%>
+					<% 
+						} else {
+							if(rs.getString("sec").equals("Y")) {
+								if(uid.equals(rs.getString("author")) || uid.equals("admin")){
+					%>
+									<a href='secInfo.jsp?no=<%=rs.getInt("no") %>' style="padding-left:60px;" class="sec2"><%=rs.getString("title") %></a>
+					<%
+								} else {
+					%>
+									<span style="padding-left:60px;" class="sec2"><%=rs.getString("title") %></span>				
+					<%
+								}		
+							} else if(rs.getString("sec").equals("N") && uid!="guest"){
+					%>
+								<a href='secInfo.jsp?no=<%=rs.getInt("no") %>' style="padding-left:60px;"><%=rs.getString("title") %></a>						
+					<%
+							} else {
+					%>
+						 		<span style="padding-left:60px;"><%=rs.getString("title") %></span>
+					<%
+							}
+						} 
+					%>
+					</td>
+					<td><%=rs.getString("author") %></td>
+					<td><%=date %></td>
+			</tr>
+<%		
+		}
+	} catch(Exception e) {
+		e.printStackTrace();
+	} finally {
+/* 		rs.close(); */
+		pstmt.close();
+		con.close();
+	}
+%>
 			</tbody>		
-		</table>	
+		</table>
+		<div class= "btn">
+		<% if(uid!="guest") { %>
 		<button type="button" class="in_btn1" onclick="location.href='secWrite.jsp'">질문등록</button>
+		<% } else { %>
+		<p style="clear:both;">회원가입 후 로그인 하셔야 질문 및 답변을 보실 수 있습니다.</p>
+		<% } %>
+		</div>
 		</div>
 		</section>
 	</div>

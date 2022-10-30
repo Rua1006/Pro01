@@ -62,12 +62,12 @@
         <div class="bread">
             <div class="bread_fr">
                 <a href="index.jsp" class="home">HOME</a> &gt;
-                <span class="sel">글작성</span>
+                <span class="sel">질문하기</span>
             </div>
         </div>
         <section class="page">
             <div class="page_wrap">
-                <h2 class="page_title">글작성</h2>                
+                <h2 class="page_title">질문하기</h2>                
                 <div class="board_edit">
                 <form name="frm" action="secWritePro.jsp" method="post" class="board_list">
                 	<table>
@@ -108,17 +108,6 @@
             </div>
        	</section>
     </div>
-<script>
-	var in_btn1 = document.getElementById("in_btn1");
-	var ck_item1 = document.getElementById("ck_item1");
-	in_btn1.addEventListener("click", function(){
-	    if(ck_item1.checked) {
-	       
-	    } else {
-	       
-	    }
-	});    
-</script>
 <footer class="ft">
 <%@ include file="footer.jsp" %>
 </footer>
