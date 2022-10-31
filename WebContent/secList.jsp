@@ -133,25 +133,25 @@
 					%>
 									<a href='secInfo.jsp?no=<%=rs.getInt("no") %>' class="sec1"><%=rs.getString("title") %></a>
 					<%
-								} else {
+									} else {
 					%>	
 									<span class="sec1"><%=rs.getString("title") %></span>
 					<%
-								}
-							} else if(rs.getString("sec").equals("N") && uid!="guest"){
+									}
+									} else if(rs.getString("sec").equals("N") && uid!="guest"){
 					%>	
 									<a href='secInfo.jsp?no=<%=rs.getInt("no") %>'><%=rs.getString("title") %></a>
 					<%
-							} else {
+									} else {
 					%>	
 									<span><%=rs.getString("title") %></span>
 					<%
-							}
-					%>
+									}
+					%>	
 					<% 
-						} else {
-							if(rs.getString("sec").equals("Y")) {
-								if(uid.equals(rs.getString("author")) || uid.equals("admin")){
+									} else {
+									if(rs.getString("sec").equals("Y")) {
+									if(uid.equals(rs.getString("author")) || uid.equals("admin")){
 					%>
 									<a href='secInfo.jsp?no=<%=rs.getInt("no") %>' style="padding-left:60px;" class="sec2"><%=rs.getString("title") %></a>
 					<%
@@ -160,11 +160,11 @@
 									<span style="padding-left:60px;" class="sec2"><%=rs.getString("title") %></span>				
 					<%
 								}		
-							} else if(rs.getString("sec").equals("N") && uid!="guest"){
+								} else if(rs.getString("sec").equals("N") && uid!="guest"){
 					%>
 								<a href='secInfo.jsp?no=<%=rs.getInt("no") %>' style="padding-left:60px;"><%=rs.getString("title") %></a>						
 					<%
-							} else {
+								} else {
 					%>
 						 		<span style="padding-left:60px;"><%=rs.getString("title") %></span>
 					<%
